@@ -44,7 +44,7 @@ Datetimes can be created by casting a string using the `todatetime` operator. Fo
 
 ```Kusto
 Heartbeat
-| where TimeGenerated between(datetime("2018-06-30 22:46:42") .. datetime("2018-07-01 00:57:27"))
+| where TimeGenerated between(todatetime("2018-06-30 22:46:42") .. todatetime("2018-07-01 00:57:27"))
 ```
 
 Another common scenario is comparing a datetime to the present. For example, to see all heartbeats over the last two minutes, you can use the `now` operator together with a timespan that represents two minutes:
@@ -70,7 +70,7 @@ Suppose that instead of knowing the start and end time, you know the start time 
 
 ```Kusto
 let startDatetime = todatetime("2018-06-30 20:12:42.9");
-let duration = totimespan(25m);
+let duration = timespan(25m);
 Heartbeat
 | where TimeGenerated between(startDatetime .. (startDatetime+duration) )
 | extend timeFromStart = TimeGenerated - startDatetime
